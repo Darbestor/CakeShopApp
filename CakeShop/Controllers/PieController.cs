@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CakeShop.Models;
+using CakeShop.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,7 +24,11 @@ namespace CakeShop.Controllers
 		// GET: /<controller>/
 		public IActionResult List()
 		{
-			return View(_pieRepository.AllPies);
+			PiesListViewModel model = new PiesListViewModel();
+			model.Pies = _pieRepository.AllPies;
+			model.CurreuntCategory = "Cheese cakes";
+
+			return View(model);
 		}
 	}
 }
