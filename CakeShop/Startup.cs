@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CakeShop.Models;
 
 namespace CakeShop
 {
@@ -16,6 +17,9 @@ namespace CakeShop
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddControllersWithViews();
+			services.AddScoped<IPieRepository, MockPieRepository>();
+			services.AddScoped<ICategoryRepository, MockCategoryRepository>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,15 +29,16 @@ namespace CakeShop
 			{
 				app.UseDeveloperExceptionPage();
 			}
+			app.UseHttpsRedirection();
+			app.UseStaticFiles();
 
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapGet("/", async context =>
-				{
-					await context.Response.WriteAsync("Hello World!");
-				});
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
 		}
 	}
