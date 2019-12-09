@@ -27,8 +27,8 @@ namespace CakeShop
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
-			services.AddScoped<IPieRepository, MockPieRepository>();
-			services.AddScoped<ICategoryRepository, MockCategoryRepository>();
+			services.AddScoped<IPieRepository, PieRepository>();
+			services.AddScoped<ICategoryRepository, CategoryRepository>();
 			services.AddDbContext<AppDbContext>(options =>
 			{
 				options.UseSqlServer(_config.GetConnectionString("DefaultConnection"));

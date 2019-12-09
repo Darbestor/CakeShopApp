@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace CakeShop.Models
 {
@@ -19,5 +21,6 @@ namespace CakeShop.Models
 		public bool InStock { get; set; }
 		public int CategoryId { get; set; }
 		public Category Category { get; set; }
+		public string Notes { get; set; }
 	}
 }
