@@ -19,22 +19,26 @@ namespace CakeShop.Models
         public void CreateOrder(Order order)
         {
             order.OrderPlaced = DateTime.Now;
-            _appDbContext.Orders.Add(order);
 
-            var shoppingCarItems = _shoppingCart.ShoppingCartItems;
+            var shoppingCartItems = _shoppingCart.ShoppingCartItems;
+            order.OrderTotal = _shoppingCart.GetShoppingCartTotal();
 
-            foreach (var shoppingCartItem in shoppingCarItems)
+            order.OrderDetails = new List<OrderDetail>();
+            //adding the order with its details
+
+            foreach (var shoppingCartItem in shoppingCartItems)
             {
                 var orderDetail = new OrderDetail
                 {
                     Amount = shoppingCartItem.Amount,
                     PieId = shoppingCartItem.Pie.PieId,
-                    OrderId = order.OrderId,
                     Price = shoppingCartItem.Pie.Price
                 };
 
-                _appDbContext.OrderDetails.Add(orderDetail);
+                order.OrderDetails.Add(orderDetail);
             }
+
+            _appDbContext.Orders.Add(order);
 
             _appDbContext.SaveChanges();
         }
