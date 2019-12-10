@@ -22,14 +22,16 @@ namespace CakeShop.Controllers
 		}
 
 		// GET: /<controller>/
-		public IActionResult List()
+/*		public IActionResult List()
 		{
 			PiesListViewModel model = new PiesListViewModel();
 			model.Pies = _pieRepository.AllPies;
 			model.CurreuntCategory = "Cheese cakes";
 
 			return View(model);
-		}
+		}*/
+
+
 
 		public IActionResult Details(int id)
 		{
