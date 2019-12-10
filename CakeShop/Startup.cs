@@ -35,6 +35,7 @@ namespace CakeShop
 			});
 			services.AddHttpContextAccessor();
 			services.AddSession();
+			services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
