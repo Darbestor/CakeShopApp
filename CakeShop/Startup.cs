@@ -29,6 +29,7 @@ namespace CakeShop
 			services.AddControllersWithViews();
 			services.AddScoped<IPieRepository, PieRepository>();
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
+			services.AddScoped<IOrderRepository, OrderRepository>();
 			services.AddDbContext<AppDbContext>(options =>
 			{
 				options.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
