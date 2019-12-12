@@ -1,4 +1,4 @@
-#CakeShop
+# CakeShop
 Tutorial ASP.NET Core application
 
 ## Functionality
