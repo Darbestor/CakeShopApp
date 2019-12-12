@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using CakeShop.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 namespace CakeShop
 {
@@ -34,9 +35,12 @@ namespace CakeShop
 			{
 				options.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
 			});
+
+			services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
 			services.AddHttpContextAccessor();
 			services.AddSession();
 			services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+			services.AddRazorPages();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,12 +56,14 @@ namespace CakeShop
 
 			app.UseRouting();
 			app.UseAuthentication();
+			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller=Home}/{action=Index}/{id?}");
+				endpoints.MapRazorPages();
 			});
 		}
 	}
